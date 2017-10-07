@@ -12,7 +12,7 @@ RSpec.feature "Guest Can Create User Account" do
       fill_in 'Email', with: 'email@email.com'
 
       fill_in "Password", with: "123abc"
-      # fill_in "password_confirmation", with: "123abc"
+      fill_in "Password confirmation", with: "123abc"
 
       click_on "Create User"
 
@@ -25,10 +25,42 @@ RSpec.feature "Guest Can Create User Account" do
       expect(page).to have_content "Logout"
 
       expect(user.email).to eq "email@email.com"
-
     end
 
-    xit 'guest should not be able to create account if email already used' do
+    it 'guest should not be able to create account if email already used' do
+      existing_user = create(:user)
+
+      visit root_path
+      
+      click_on "Create Account"
+
+      expect(current_path).to eq new_user_path
+
+      fill_in 'Email', with: 'email@email.com'
+
+      fill_in "Password", with: "123abc"
+      fill_in "Password confirmation", with: "123abc"
+
+      click_on "Create User"
+
+      expect(page).to have_content "Email has already been taken"
+    end
+
+    it 'guest should not be able to create account if passwords do not match' do
+      visit root_path
+      
+      click_on "Create Account"
+
+      expect(current_path).to eq new_user_path
+
+      fill_in 'Email', with: 'email@email.com'
+
+      fill_in "Password", with: "123abc"
+      fill_in "Password confirmation", with: "abc123"
+
+      click_on "Create User"
+
+      expect(page).to have_content "Password confirmation doesn't match Password"
     end
   end
 
