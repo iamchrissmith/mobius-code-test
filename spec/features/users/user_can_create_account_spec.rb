@@ -65,10 +65,25 @@ RSpec.feature "Guest Can Create User Account" do
   end
 
   context 'when already logged in' do
-    xit 'user should not see the create account button' do
+    it 'user should not see the login button' do
+      user = create(:user)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit users_path
+
+      expect(current_path).to eq users_path
+      expect(page).not_to have_content "Login"
     end
 
-    xit 'user should be redirected to users_path if manually visits new_user_path' do
+    it 'user should be redirected to users_path if manually visits new_user_path' do
+      user = create(:user)
+      
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit new_user_path
+
+      expect(current_path).to eq users_path
     end
   end
 end
