@@ -9,19 +9,19 @@ RSpec.feature "Guest Can Create User Account" do
 
       expect(current_path).to eq new_user_path
 
-      fill_in 'email', with: 'email@email.com'
+      fill_in 'Email', with: 'email@email.com'
 
-      fill_in "password", with: "123abc"
-      fill_in "password_confrimation", with: "123abc"
+      fill_in "Password", with: "123abc"
+      # fill_in "password_confirmation", with: "123abc"
 
-      click_on "Submit"
+      click_on "Create User"
 
       user = User.last
 
       expect(current_path).to eq users_path
       expect(page).to have_content "Your Account has been created."
       
-      expect(page).to have_content "Your Credits: 10"
+      expect(page).to have_content "Your Credits: 100"
       expect(page).to have_content "Logout"
 
       expect(user.email).to eq "email@email.com"

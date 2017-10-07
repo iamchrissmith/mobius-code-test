@@ -1,0 +1,9 @@
+= form_for @user do |f|
+  = render partial: "shared/errors", locals: { target: @user }
+  .form-group
+    = f.label :email
+    = f.text_field :email
+  .form-group
+    = f.label :password
+    = f.text_field :password  
+  = f.submit
