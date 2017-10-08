@@ -15,5 +15,19 @@ RSpec.describe User, type: :model do
         expect(user).to be_valid
       end
     end
+
+    context "relationships" do
+      it "has many transactions" do
+        user = create(:user)
+
+        expect(user).to respond_to(:transactions)
+      end
+
+      it 'has many receipts' do
+        user = create(:user)
+
+        expect(user).to respond_to(:receipts)
+      end
+    end
   end
 end

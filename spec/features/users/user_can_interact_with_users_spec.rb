@@ -26,6 +26,7 @@ RSpec.feature 'User can interact with other Users' do
       expect(page).to have_content "Your Credits: 100"
       expect(page).to have_content "#{user1.email}"
       expect(page).to have_content "#{user2.email}"
+      expect(page).to have_content "Send Credit to: "
     end
 
     xit 'user can send credit to another user' do
