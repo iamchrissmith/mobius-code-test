@@ -42,6 +42,28 @@ RSpec.describe User, type: :model do
 
         expect(user.balance).to eq 100
       end
+
+      it 'user balance reduces when sending credit' do
+        user = create(:user)
+        transaction = create(:transaction, user: user, amount: 10)
+
+        expect(user.balance).to eq 90
+      end
+
+      it 'user balance increases when receiving credit' do
+        user = create(:user)
+        transaction = create(:transaction, to: user, amount: 10)
+
+        expect(user.balance).to eq 110
+      end
+
+      it 'user balance correctly calculates multiple transactions' do
+        user = create(:user)
+        transaction = create(:transaction, user: user, amount: 20)
+        receipt = create(:transaction, to: user, amount: 10)
+
+        expect(user.balance).to eq 90
+      end
     end
   end
 end
