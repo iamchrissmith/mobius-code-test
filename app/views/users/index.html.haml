@@ -1,3 +1,16 @@
 .container
   = link_to "Logout", logout_path
   Your Credits: 100
+
+  %ul
+    = @users.each do |user|
+      %li
+        %p
+          = user.email
+          %span
+            "Send Credit to: "
+            = form_for @transaction do |f|
+              .form-group
+                = f.label :amount
+                = f.number_field :amount
+              = f.submit
