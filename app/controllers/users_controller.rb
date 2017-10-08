@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :require_user, except: [:new, :create]
 
   def index
-    @users = User.all
+    @users = User.where.not(id: current_user.id)
     @transaction = current_user.transactions.create
   end
 
