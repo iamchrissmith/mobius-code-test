@@ -36,7 +36,7 @@ RSpec.feature "Guest Can Create User Account" do
 
       expect(current_path).to eq new_user_path
 
-      fill_in 'Email', with: 'email@email.com'
+      fill_in 'Email', with: existing_user.email
 
       fill_in "Password", with: "123abc"
       fill_in "Password confirmation", with: "123abc"

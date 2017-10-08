@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
+    @transaction = current_user.transactions.create
   end
 
   def new
