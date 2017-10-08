@@ -29,5 +29,19 @@ RSpec.describe User, type: :model do
         expect(user).to respond_to(:receipts)
       end
     end
+
+    describe ".balance" do
+      it 'user has a balance' do
+        user = create(:user)
+
+        expect(user).to respond_to(:balance)
+      end
+
+      it 'user has an initial balance of 100' do
+        user = create(:user)
+
+        expect(user.balance).to eq 100
+      end
+    end
   end
 end
