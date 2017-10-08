@@ -40,9 +40,34 @@ RSpec.feature 'User can interact with other Users' do
 
       expect(current_path).to eq users_path
 
+      current_user.reload
+      user1.reload
+
+      expect(page).to have_content "Your transaction has been created."
       expect(current_user.balance).to eq 90
       expect(user1.balance).to eq 110
       expect(page).to have_content "Your Credits: 90"
+    end
+
+    it 'user cannot send too much credit to another user' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(current_user)
+      
+      visit users_path
+
+      within ".user-#{user1.id}" do
+        fill_in 'Amount', with: '110'
+        click_on "Send Credit"
+      end
+
+      expect(current_path).to eq users_path
+
+      current_user.reload
+      user1.reload
+
+      expect(page).to have_content "You cannot overspend your credits"
+      expect(current_user.balance).to eq 100
+      expect(user1.balance).to eq 100
+      expect(page).to have_content "Your Credits: 100"
     end
   end
 end

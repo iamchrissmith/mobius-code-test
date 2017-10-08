@@ -1,6 +1,6 @@
 .container
   = link_to "Logout", logout_path
-  Your Credits: 100
+  = "Your Credits: #{current_user.balance}"
 
   %ul
     - @users.each do |user|
@@ -10,9 +10,10 @@
           %span
             Send Credit to: 
             = form_for @transaction do |f|
-              = f.hidden_field :user, value: current_user.id
-              = f.hidden_field :to, value: user.id
+              = f.hidden_field :user_id, value: current_user.id
+              = f.hidden_field :to_id, value: user.id
+              = f.hidden_field :to_type, value: "User"
               .form-group
                 = f.label :amount
-                = f.number_field :amount
+                = f.number_field :amount, min: 0, max: current_user.balance
               = f.submit "Send Credit"
