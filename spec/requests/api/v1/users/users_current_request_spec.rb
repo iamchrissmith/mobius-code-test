@@ -13,8 +13,8 @@ describe 'Users API' do
 
       current = JSON.parse(response.body)
 
-      expect(current.email).to eq user.email
-      expect(current.num_credits).to eq user.balance
+      expect(current["email"]).to eq user.email
+      expect(current["num_credits"]).to eq user.balance
     end
   end
 end
