@@ -15,6 +15,6 @@
                 = f.hidden_field :to_id, value: user.id
                 = f.hidden_field :to_type, value: "User"
                 = f.label :amount, class: "sr-only"
-                = f.number_field :amount, min: 0, max: current_user.balance, class: "form-control"
+                = f.number_field :amount, min: 0, max: current_user.balance, class: "form-control", required: true
               .form-group.mx-sm-3
                 = f.submit "Send Credit", class: "btn btn-default"
