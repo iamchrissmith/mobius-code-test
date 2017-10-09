@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "User logs out" do
-  it "they can logout" do
+  it "removes the users session and returns them to the login page" do
     user = create(:user)
 
     visit login_path

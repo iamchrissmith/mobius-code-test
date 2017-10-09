@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "User logs in" do
-  it "they can log in" do
+  it "sets the session for the user's id" do
     user = create(:user)
 
     visit login_path
