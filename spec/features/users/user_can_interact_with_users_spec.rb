@@ -25,7 +25,6 @@ RSpec.feature 'User can interact with other Users' do
       expect(page).to have_content "Your Credits: 100"
       expect(page).to have_content "#{user1.email}"
       expect(page).to have_content "#{user2.email}"
-      expect(page).to have_content "Send Credit to: "
     end
 
     it 'user can send credit to another user' do
@@ -64,7 +63,7 @@ RSpec.feature 'User can interact with other Users' do
       current_user.reload
       user1.reload
 
-      expect(page).to have_content "You cannot overspend your credits"
+      expect(page).to have_content "Amount cannot be more than your balance"
       expect(current_user.balance).to eq 100
       expect(user1.balance).to eq 100
       expect(page).to have_content "Your Credits: 100"

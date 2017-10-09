@@ -11,7 +11,6 @@
           .col
             = form_for @transaction, html: { class: 'form-inline' } do |f|
               .form-group
-                = f.hidden_field :user_id, value: current_user.id
                 = f.hidden_field :to_id, value: user.id
                 = f.hidden_field :to_type, value: "User"
                 = f.label :amount, class: "sr-only"
