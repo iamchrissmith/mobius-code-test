@@ -1,7 +1,7 @@
 class TransactionsController < ApplicationController
 
   def create
-    @transaction = Transaction.create(tx_params)
+    @transaction = current_user.transactions.create(tx_params)
     if @transaction.save
       flash[:success] = "Your transaction has been created."
     else 
@@ -12,6 +12,6 @@ class TransactionsController < ApplicationController
 
   private
     def tx_params
-      params.require(:transaction).permit(:to_id, :to_type, :amount).merge(user_id:current_user.id)
+      params.require(:transaction).permit(:to_id, :to_type, :amount)
     end
 end
