@@ -5,7 +5,7 @@ class TransactionsController < ApplicationController
     if sender.balance < tx_params[:amount].to_i
       flash[:error] = "You cannot overspend your credits"
     else
-      @transaction = Transaction.create!(tx_params)
+      @transaction = Transaction.create(tx_params)
       if @transaction.save
         flash[:success] = "Your transaction has been created."
       else 
