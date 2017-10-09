@@ -2,18 +2,19 @@
   = link_to "Logout", logout_path
   = "Your Credits: #{current_user.balance}"
 
-  %ul
+  %ul.list-group
     - @users.each do |user|
-      %li{class: "user-#{user.id}"}
-        %p
-          = user.email
-          %span
-            Send Credit to: 
-            = form_for @transaction do |f|
-              = f.hidden_field :user_id, value: current_user.id
-              = f.hidden_field :to_id, value: user.id
-              = f.hidden_field :to_type, value: "User"
+      %li{class: "user-#{user.id} list-group-item"}
+        .row
+          .col
+            = user.email
+          .col
+            = form_for @transaction, html: { class: 'form-inline' } do |f|
               .form-group
-                = f.label :amount
-                = f.number_field :amount, min: 0, max: current_user.balance
-              = f.submit "Send Credit"
+                = f.hidden_field :user_id, value: current_user.id
+                = f.hidden_field :to_id, value: user.id
+                = f.hidden_field :to_type, value: "User"
+                = f.label :amount, class: "sr-only"
+                = f.number_field :amount, min: 0, max: current_user.balance, class: "form-control"
+              .form-group.mx-sm-3
+                = f.submit "Send Credit", class: "btn btn-default"
