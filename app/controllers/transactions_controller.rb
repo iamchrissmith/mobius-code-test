@@ -1,8 +1,8 @@
 class TransactionsController < ApplicationController
 
   def create
-    current_user.with_lock do 
-      @transaction = current_user.transactions.create(tx_params)
+    @transaction = Transaction.create(tx_params)
+    @transaction.with_lock('FOR SHARE') do
       if @transaction.save
         flash[:success] = "Your transaction has been created."
       else 
@@ -14,6 +14,6 @@ class TransactionsController < ApplicationController
 
   private
     def tx_params
-      params.require(:transaction).permit(:to_id, :to_type, :amount)
+      params.require(:transaction).permit(:to_id, :to_type, :amount).merge(user_id: current_user.id)
     end
 end
